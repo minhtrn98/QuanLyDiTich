@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+    <PackageReference Include="System.Reflection.TypeExtensions" />
+    <PackageReference Include="X.Libraries.Helper" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="X.Libraries.Result" />
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="System.Data.SqlClient" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" />
+  </ItemGroup>
+</Project>
