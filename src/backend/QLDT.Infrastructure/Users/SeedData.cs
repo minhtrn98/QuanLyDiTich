@@ -7,7 +7,7 @@ internal sealed class SeedData
 {
     public static readonly IReadOnlyList<User> SeedUsers =
     [
-        new User(){ Id = Guid.NewGuid(), FirstName = "tony", LastName = "stark" },
-        new User(){ Id = Guid.NewGuid(), FirstName = "tom", LastName = "holand" },
+        new User() { Id = Guid.NewGuid(), FirstName = "tony", LastName = "stark" },
+        new User() { Id = Guid.NewGuid(), FirstName = "tom", LastName = "holand" },
     ];
 }
