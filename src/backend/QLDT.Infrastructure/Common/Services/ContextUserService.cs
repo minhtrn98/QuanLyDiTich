@@ -8,7 +8,8 @@ internal sealed class ContextUserService(IHttpContextAccessor _httpContextAccess
 {
     public CurrentUser GetCurrentUser()
     {
-        HttpContext httpContext = _httpContextAccessor.HttpContext ?? throw new Exception("Cannot access HttpContext");
+        HttpContext httpContext = _httpContextAccessor.HttpContext
+            ?? throw new Exception("Cannot access HttpContext");
 
         _ = Guid.TryParse(GetSingleClaimValue(httpContext, "id"), out Guid id);
         List<string> permissions = GetClaimValues(httpContext, "permissions");

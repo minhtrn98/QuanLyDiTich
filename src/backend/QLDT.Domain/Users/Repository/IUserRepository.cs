@@ -1,5 +1,8 @@
-﻿using QLDT.Domain.UnitOfWork;
+﻿namespace QLDT.Domain.Users.Repository;
 
-namespace QLDT.Domain.Users.Repository;
-
-public interface IUserRepository : IRepository<User> { }
+public interface IUserRepository
+{
+    Task<bool> Create(User user, string password);
+    Task<User?> FindByName(string userName);
+    Task<bool> CheckPassword(User user, string password);
+}

@@ -1,24 +1,39 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.EntityFrameworkCore.Metadata;
 using QLDT.Application.Common.Services;
 using QLDT.Domain.Common;
-using QLDT.Domain.Users;
 using QLDT.Infrastructure.EntityConfigurations;
+using QLDT.Infrastructure.Identity;
 
 namespace QLDT.Infrastructure.Persistence;
 
-internal sealed class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+internal sealed class AppDbContext(DbContextOptions<AppDbContext> options)
+    : IdentityDbContext<AppUser, AppRole, Guid>(options)
 {
     public IContextUserService ContextUserService { get; set; } = default!;
     public IDateTimeService DateTimeService { get; set; } = default!;
-
-    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
 
         base.OnModelCreating(modelBuilder);
+        RemoveAspNetPrefixTableName(modelBuilder);
+    }
+
+    private static void RemoveAspNetPrefixTableName(ModelBuilder modelBuilder)
+    {
+        foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            string? tableName = entityType.GetTableName();
+            if (string.IsNullOrEmpty(tableName)) continue;
+            if (tableName.StartsWith("AspNet"))
+            {
+                entityType.SetTableName(tableName["AspNet".Length..]);
+            }
+        }
     }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

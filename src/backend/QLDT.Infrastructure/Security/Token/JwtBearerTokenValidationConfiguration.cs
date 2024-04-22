@@ -18,7 +18,9 @@ public sealed class JwtBearerTokenValidationConfiguration : IConfigureNamedOptio
 
     public void Configure(JwtBearerOptions options)
     {
+        options.SaveToken = true;
         options.Authority = _jwtSettings.Issuer;
+        options.ClaimsIssuer = _jwtSettings.Issuer;
         options.Audience = _jwtSettings.Audience;
         options.TokenValidationParameters = new TokenValidationParameters
         {

@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using QLDT.Application.Common.Services;
 using QLDT.Domain;
 using QLDT.Domain.Common;
 using QLDT.Domain.Users.Repository;
 using QLDT.Infrastructure.Common.Caching;
 using QLDT.Infrastructure.Common.Services;
+using QLDT.Infrastructure.Identity;
 using QLDT.Infrastructure.Security;
 using QLDT.Infrastructure.Security.ContextUser;
 using QLDT.Infrastructure.Security.Token;
@@ -36,10 +39,10 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        // services.AddOptions<JwtSettings>()
-        //     .Bind(configuration.GetRequiredSection(JwtSettings.NAME))
-        //     .ValidateDataAnnotations()
-        //     .ValidateOnStart();
+        services.AddOptions<JwtSettings>()
+            .Bind(configuration.GetRequiredSection(JwtSettings.NAME))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
 
         services.AddSingleton<IDateTimeService, SystemDateTimeProvider>();
 
@@ -50,6 +53,7 @@ public static class DependencyInjection
         this IServiceCollection services,
         IConfiguration configuration)
     {
+        services.AddScoped<IUserStore<IdentityUser>, CustomUserStore>();
         services.AddPooledDbContextFactory<AppDbContext>(options =>
         {
             options.UseSqlServer(
@@ -84,6 +88,25 @@ public static class DependencyInjection
     {
         services.AddScoped<IAuthorizationService, AuthorizationService>();
         services.AddScoped<IContextUserService, ContextUserService>();
+
+        // add identity
+        IdentityBuilder identityBuilder = services.AddIdentityCore<AppUser>(o =>
+        {
+            // configure identity options
+            o.Password.RequireDigit = false;
+            o.Password.RequireLowercase = false;
+            o.Password.RequireUppercase = false;
+            o.Password.RequireNonAlphanumeric = false;
+            o.Password.RequiredLength = 6;
+        });
+
+        identityBuilder = new IdentityBuilder(
+            identityBuilder.UserType,
+            typeof(IdentityRole),
+            identityBuilder.Services);
+        identityBuilder
+            .AddEntityFrameworkStores<AppDbContext>()
+            .AddDefaultTokenProviders();
 
         return services;
     }

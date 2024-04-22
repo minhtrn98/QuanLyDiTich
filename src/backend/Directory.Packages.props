@@ -1,63 +1,59 @@
 <Project>
-    <PropertyGroup>
-        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-        <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-        <TargetFramework>net8.0</TargetFramework>
-        <Nullable>enable</Nullable>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <AspnetVersion>8.0.3</AspnetVersion>
-        <MicrosoftExtensionsVersion>8.2.0</MicrosoftExtensionsVersion>
-        <EfVersion>8.0.3</EfVersion>
-    </PropertyGroup>
-    <ItemGroup>
-        <!-- Version together with ASP.NET -->
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer"
-            Version="$(AspnetVersion)" />
-        <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect"
-            Version="$(AspnetVersion)" />
-        <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspnetVersion)" />
-        <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"
-            Version="$(AspnetVersion)" />
-        <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspnetVersion)" />
-        <PackageVersion Include="Microsoft.Net.Http.Headers" Version="$(AspnetVersion)" />
-        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions"
-            Version="8.0.1" />
-        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
-        <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.3" />
-        <!-- Logging -->
-        <PackageVersion Include="Serilog" Version="3.1.1" />
-        <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
-        <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
-        <PackageVersion Include="Serilog.Sinks.Seq" Version="7.0.0" />
-        <!-- Version together with EF -->
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfVersion)" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfVersion)" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfVersion)" />
-        <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfVersion)">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageVersion>
-        <!-- VS Test -->
-        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
-        <!-- Miscellaneous -->
-        <PackageVersion Include="Mapster" Version="7.4.0" />
-        <PackageVersion Include="Dapper" Version="2.1.35" />
-        <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-        <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
-        <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
-        <PackageVersion Include="System.Reflection.TypeExtensions" Version="4.7.0" />
-        <PackageVersion Include="X.Libraries.Helper" Version="1.0.5" />
-        <PackageVersion Include="X.Libraries.Result" Version="1.0.6" />
-        <PackageVersion Include="xunit" Version="2.6.6" />
-        <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.6" />
-        <PackageVersion Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" />
-        <PackageVersion Include="AspNetCore.SpaYarp" Version="2.0.1" />
-        <PackageVersion Include="FluentValidation" Version="11.9.0" />
-        <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0" />
-        <PackageVersion Include="MediatR" Version="12.2.0" />
-        <!-- Api version -->
-        <PackageVersion Include="Asp.Versioning.Http" Version="8.0.0" />
-        <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
-    </ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AspnetVersion>8.0.4</AspnetVersion>
+    <MicrosoftExtensionsVersion>8.2.0</MicrosoftExtensionsVersion>
+    <EfVersion>8.0.4</EfVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Version together with ASP.NET -->
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="$(AspnetVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="$(AspnetVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspnetVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="$(AspnetVersion)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Identity.UI" Version="$(AspnetVersion)" />
+    <PackageVersion Include="Microsoft.Net.Http.Headers" Version="$(AspnetVersion)" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.3" />
+    <!-- Logging -->
+    <PackageVersion Include="Serilog" Version="3.1.1" />
+    <PackageVersion Include="Serilog.AspNetCore" Version="8.0.1" />
+    <PackageVersion Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+    <PackageVersion Include="Serilog.Sinks.Seq" Version="7.0.0" />
+    <!-- Version together with EF -->
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(EfVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Tools" Version="$(EfVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$(EfVersion)" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="$(EfVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageVersion>
+    <!-- VS Test -->
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+    <!-- Miscellaneous -->
+    <PackageVersion Include="Mapster" Version="7.4.0" />
+    <PackageVersion Include="Dapper" Version="2.1.35" />
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageVersion Include="System.Data.SqlClient" Version="4.8.6" />
+    <PackageVersion Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
+    <PackageVersion Include="System.Reflection.TypeExtensions" Version="4.7.0" />
+    <PackageVersion Include="X.Libraries.Helper" Version="1.0.5" />
+    <PackageVersion Include="X.Libraries.Result" Version="1.0.6" />
+    <PackageVersion Include="xunit" Version="2.6.6" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.6" />
+    <PackageVersion Include="NetEscapades.EnumGenerators" Version="1.0.0-beta08" />
+    <PackageVersion Include="AspNetCore.SpaYarp" Version="2.0.1" />
+    <PackageVersion Include="FluentValidation" Version="11.9.0" />
+    <PackageVersion Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageVersion Include="MediatR" Version="12.2.0" />
+    <!-- Api version -->
+    <PackageVersion Include="Asp.Versioning.Http" Version="8.0.0" />
+    <PackageVersion Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
+  </ItemGroup>
 </Project>

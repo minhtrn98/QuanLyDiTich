@@ -1,7 +1,7 @@
+using Microsoft.Net.Http.Headers;
 using QLDT.API;
 using QLDT.Application;
 using QLDT.Infrastructure;
-using Microsoft.Net.Http.Headers;
 using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
