@@ -13,20 +13,10 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<AppUser>
         builder.HasKey(t => t.Id)
             .IsClustered(false);
 
-        //builder.Property(pc => pc.FirstName)
-        //    .HasMaxLength(UserSchema.FIRST_NAME_MAX_LENGTH)
-        //    .IsRequired(true);
+        builder.Property(u => u.FirstName)
+            .HasMaxLength(255);
 
-        //builder.Property(pc => pc.LastName)
-        //    .HasMaxLength(UserSchema.LAST_NAME_MAX_LENGTH)
-        //    .IsRequired(true);
-
-        //builder.HasMany(e => e.Permissions)
-        //    .WithMany()
-        //    .UsingEntity<UserPermission>();
-
-        //builder.HasMany(e => e.Roles)
-        //    .WithMany()
-        //    .UsingEntity<UserRole>();
+        builder.Property(u => u.LastName)
+            .HasMaxLength(255);
     }
 }

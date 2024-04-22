@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -10,7 +11,7 @@ using QLDT.Infrastructure.Identity;
 namespace QLDT.Infrastructure.Persistence;
 
 internal sealed class AppDbContext(DbContextOptions<AppDbContext> options)
-    : IdentityDbContext<AppUser, AppRole, Guid>(options)
+    : IdentityDbContext<AppUser, AppRole, Guid, IdentityUserClaim<Guid>, AppUserRole, IdentityUserLogin<Guid>, AppRoleClaim, IdentityUserToken<Guid>>(options)
 {
     public IContextUserService ContextUserService { get; set; } = default!;
     public IDateTimeService DateTimeService { get; set; } = default!;
@@ -18,6 +19,12 @@ internal sealed class AppDbContext(DbContextOptions<AppDbContext> options)
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+        modelBuilder.ApplyConfiguration(new RoleConfiguration());
+        modelBuilder.ApplyConfiguration(new RoleClaimConfiguration());
+        modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+        modelBuilder.ApplyConfiguration(new FunctionPermissionConfiguration());
+        modelBuilder.ApplyConfiguration(new FunctionConfiguration());
 
         base.OnModelCreating(modelBuilder);
         RemoveAspNetPrefixTableName(modelBuilder);
@@ -28,7 +35,11 @@ internal sealed class AppDbContext(DbContextOptions<AppDbContext> options)
         foreach (IMutableEntityType entityType in modelBuilder.Model.GetEntityTypes())
         {
             string? tableName = entityType.GetTableName();
-            if (string.IsNullOrEmpty(tableName)) continue;
+            if (string.IsNullOrEmpty(tableName))
+            {
+                continue;
+            }
+
             if (tableName.StartsWith("AspNet"))
             {
                 entityType.SetTableName(tableName["AspNet".Length..]);

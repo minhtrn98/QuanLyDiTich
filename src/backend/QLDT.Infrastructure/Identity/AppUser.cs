@@ -3,7 +3,7 @@ using QLDT.Domain.Common;
 
 namespace QLDT.Infrastructure.Identity;
 
-internal sealed class AppUser : IdentityUser<Guid>, IAuditCreate, IAuditModify
+internal sealed class AppUser : IdentityUser<Guid>, IAuditCreate, IAuditModify, ISoftDelete
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
@@ -13,4 +13,6 @@ internal sealed class AppUser : IdentityUser<Guid>, IAuditCreate, IAuditModify
     public Guid CreatedBy { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public Guid? UpdatedBy { get; set; }
+    public Guid? DeletedBy { get; set; }
+    public DateTime? DeletedAt { get; set; }
 }

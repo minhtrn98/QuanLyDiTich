@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using QLDT.Application.Common.Services;
 using QLDT.Domain;
 using QLDT.Domain.Common;
@@ -102,7 +101,7 @@ public static class DependencyInjection
 
         identityBuilder = new IdentityBuilder(
             identityBuilder.UserType,
-            typeof(IdentityRole),
+            typeof(AppRole),
             identityBuilder.Services);
         identityBuilder
             .AddEntityFrameworkStores<AppDbContext>()
