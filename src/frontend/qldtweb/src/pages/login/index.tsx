@@ -2,27 +2,22 @@ import { Button } from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { FormInput } from '@/components/form/form-input';
 import FormControl from '@/components/form/form-control';
+import authValidation, { FormLoginSchema } from '@/validation/auth.validation';
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string(),
-});
-
-type FormSchemaType = z.infer<typeof formSchema>;
+const { loginSchema } = authValidation;
 
 const Login = () => {
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormLoginSchema>({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
       password: '',
     },
   });
 
-  const onSubmit = (data: FormSchemaType) => {
+  const onSubmit = (data: FormLoginSchema) => {
     console.log(data);
   };
 
@@ -30,7 +25,7 @@ const Login = () => {
     <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px] h-full">
       <div className="flex items-center justify-center py-12">
         <div className="mx-auto grid w-[350px] gap-6">
-          <FormControl<FormSchemaType> form={form} onFinish={onSubmit}>
+          <FormControl<FormLoginSchema> form={form} onFinish={onSubmit}>
             <div className="grid gap-2 text-center">
               <h1 className="text-3xl font-bold">Login</h1>
               <p className="text-balance text-muted-foreground">Enter your email below to login to your account</p>
