@@ -8,11 +8,4 @@ export default defineConfig({
       // implement node event listeners here
     },
   },
-
-  component: {
-    devServer: {
-      framework: 'react',
-      bundler: 'vite',
-    },
-  },
 });
