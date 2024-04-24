@@ -10,7 +10,9 @@
     "preview": "vite preview",
     "lint-fix": "eslint . --ext js,ts,tsx",
     "format": "prettier --write **/*.{js,ts,tsx} && eslint . --ext js,ts,tsx --fix",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --record --key db884ffd-dded-4f61-8a1f-47894bd65f39"
   },
   "husky": {
     "hooks": {
@@ -60,6 +62,7 @@
     "@typescript-eslint/parser": "^5.3.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.18",
+    "cypress": "^13.8.1",
     "eslint": "^8.1.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.27.5",
