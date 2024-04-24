@@ -7,6 +7,7 @@ Clone the repo:
 Install the dependencies:
 
 ```bash
+cd src/frontend/qldtweb/
 yarn install
 ```
 
