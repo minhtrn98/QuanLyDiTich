@@ -4,7 +4,7 @@
 
 html,
 body,
-:root {
+#root {
   height: 100%;
 }
 
@@ -80,4 +80,3 @@ body,
     @apply bg-background text-foreground;
   }
 }
-
