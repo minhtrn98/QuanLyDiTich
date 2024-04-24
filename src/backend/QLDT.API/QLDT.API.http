@@ -1,6 +1,6 @@
-@QLDT.API_HostAddress = http://localhost:5286
+@API_HostAddress = https://localhost:5001
 
-GET {{QLDT.API_HostAddress}}/weatherforecast/
+GET {{API_HostAddress}}/api/tests
 Accept: application/json
 
 ###

@@ -82,7 +82,7 @@ WebApplication app = builder.Build();
 
     if (app.Environment.IsDevelopment())
     {
-        app.UseSpaYarp();
+        //app.UseSpaYarp();
     }
     else
     {

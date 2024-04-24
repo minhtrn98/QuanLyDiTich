@@ -1,5 +1,6 @@
 ﻿using QLDT.Application.Common.Request;
 using QLDT.Application.Common.Services;
+using QLDT.Domain.UnitOfWork;
 
 namespace QLDT.Application.Common.Behaviors;
 
@@ -9,10 +10,13 @@ public sealed class AuthorizationBehavior<TRequest, TResponse>
         where TResponse : IResultBase
 {
     private readonly IAuthorizationService _authorizationService;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public AuthorizationBehavior(IAuthorizationService authorizationService)
+    public AuthorizationBehavior(
+        IAuthorizationService authorizationService, IUnitOfWork unitOfWork)
     {
         _authorizationService = authorizationService;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<TResponse> Handle(
@@ -20,21 +24,12 @@ public sealed class AuthorizationBehavior<TRequest, TResponse>
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        string requestName = typeof(TRequest).Name;
-        // using request name to get permission & role required for request
+        string requestName = typeof(TRequest).FullName
+            ?.Replace("+", "") ?? "";
+        IEnumerable<string> requiredPermissions = await _unitOfWork.Functions
+            .GetPermissionNames(requestName, cancellationToken);
 
-        //List<AuthorizeAttribute> authorizationAttributes = request.GetType()
-        //    .GetCustomAttributes<AuthorizeAttribute>()
-        //    .ToList();
-
-        //if (authorizationAttributes.Count == 0)
-        //{
-        //    return await next();
-        //}
-
-        IEnumerable<string> requiredPermissions = [];
-
-        IEnumerable<string> requiredRoles = [];
+        IEnumerable<string> requiredRoles = [];//TODO:
 
         Result<Success> authorizeError = _authorizationService.AuthorizeCurrentUser(
             requiredRoles,

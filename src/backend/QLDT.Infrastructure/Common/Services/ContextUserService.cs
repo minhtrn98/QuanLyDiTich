@@ -11,11 +11,18 @@ internal sealed class ContextUserService(IHttpContextAccessor _httpContextAccess
         HttpContext httpContext = _httpContextAccessor.HttpContext
             ?? throw new Exception("Cannot access HttpContext");
 
-        _ = Guid.TryParse(GetSingleClaimValue(httpContext, "id"), out Guid id);
-        List<string> permissions = GetClaimValues(httpContext, "permissions");
-        List<string> roles = GetClaimValues(httpContext, ClaimTypes.Role);
+        bool isSuccess = Guid.TryParse(GetSingleClaimValue(httpContext, "id"), out Guid id);
 
-        return new CurrentUser(id, permissions, roles);
+        if (isSuccess)
+        {
+            List<string> permissions = GetClaimValues(httpContext, "permissions");
+            List<string> roles = GetClaimValues(httpContext, ClaimTypes.Role);
+            return new CurrentUser(id, permissions, roles);
+        }
+#if DEBUG
+        return new CurrentUser(Guid.Empty, [], []);
+#endif
+        throw new Exception("UserId is not valid");
     }
 
     private static List<string> GetClaimValues(HttpContext httpContext, string claimType) =>

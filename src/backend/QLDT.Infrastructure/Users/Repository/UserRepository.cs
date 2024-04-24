@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using QLDT.Domain.Users;
 using QLDT.Domain.Users.Repository;
 using QLDT.Infrastructure.Identity;
+using XResult;
 
 namespace QLDT.Infrastructure.Users.Persistence;
 
@@ -20,11 +21,19 @@ internal sealed class UserRepository : IUserRepository
         return await _userManager.CheckPasswordAsync(user.Adapt<AppUser>(), password);
     }
 
-    public async Task<bool> Create(User user, string password)
+    public async Task<Result<Success>> Create(User user, string password)
     {
         AppUser appUser = user.Adapt<AppUser>();
+        appUser.UserName = user.Email;
         IdentityResult identityResult = await _userManager.CreateAsync(appUser, password);
-        return identityResult.Succeeded;
+        if (identityResult.Succeeded)
+        {
+            return Result.Success;
+        }
+        List<Error> errors = identityResult.Errors
+            .Select(e => new Error(e.Code, e.Description, ErrorType.Failure))
+            .ToList();
+        return new Result<Success>(errors);
     }
 
     public async Task<User?> FindByName(string userName)

@@ -10,6 +10,8 @@ internal sealed class FunctionConfiguration : IEntityTypeConfiguration<Function>
     {
         builder.ToTable("Functions");
 
+        builder.HasIndex(u => u.Name).IsUnique(true);
+
         builder.HasKey(t => t.Id)
             .IsClustered(false);
 

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Metadata;
 using QLDT.Application.Common.Services;
 using QLDT.Domain.Common;
+using QLDT.Domain.Users;
 using QLDT.Infrastructure.EntityConfigurations;
 using QLDT.Infrastructure.Identity;
 
@@ -13,6 +14,11 @@ namespace QLDT.Infrastructure.Persistence;
 internal sealed class AppDbContext(DbContextOptions<AppDbContext> options)
     : IdentityDbContext<AppUser, AppRole, Guid, IdentityUserClaim<Guid>, AppUserRole, IdentityUserLogin<Guid>, AppRoleClaim, IdentityUserToken<Guid>>(options)
 {
+
+    public DbSet<Function> Functions { get; set; }
+    public DbSet<Permission> Permissions { get; set; }
+    public DbSet<FunctionPermission> FunctionPermissions { get; set; }
+
     public IContextUserService ContextUserService { get; set; } = default!;
     public IDateTimeService DateTimeService { get; set; } = default!;
 
